@@ -30,7 +30,8 @@
     "pinia": "^2.1.7",
     "vant": "^4.7.2",
     "vue": "^3.3.6",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vue3-seamless-scroll": "^2.0.1"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.8.1",
