@@ -34,7 +34,7 @@ const classOption = ref({
   <div class="demo-content px-[12px]">
     <div class="table1">
       <vue3-seamless-scroll
-        step="0.5"
+        :step="0.5"
         :list="contentList"
         :class-option="classOption"
         class="table"
@@ -78,6 +78,7 @@ const classOption = ref({
     </div>
   </div>
 </template>
+
 <style lang="less" scoped>
 .table1 {
   height: 150px;
