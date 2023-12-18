@@ -3,6 +3,7 @@ import { defineConfig, loadEnv } from "vite";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import Components from "unplugin-vue-components/vite";
+import AutoImport from "unplugin-auto-import/vite";
 import { VantResolver } from "unplugin-vue-components/resolvers";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import path from "path";
@@ -47,6 +48,17 @@ export default defineConfig(({ mode }) => {
           data: {
             ENABLE_ERUDA: env.VITE_ENABLE_ERUDA || "false"
           }
+        }
+      }),
+      // 自动导入api
+      AutoImport({
+        imports: ["vue", "vue-router"],
+        // 设置为在'src/'目录下生成解决ts报错，默认是当前目录('./'，即根目录)
+        dts: "src/auto-import.d.ts",
+        // 自动生成'eslintrc-auto-import.json'文件，在'.eslintrc.cjs'的'extends'中引入解决报错
+        // 'vue-global-api'这个插件仅仅解决vue3 hook报错
+        eslintrc: {
+          enabled: true
         }
       }),
       // 生产环境默认不启用 CDN 加速
