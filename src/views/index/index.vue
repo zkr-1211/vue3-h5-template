@@ -8,8 +8,6 @@ const codePlate = ref("");
 let parseQRCodeInfo = ref<any>({});
 function getEnvJumpCode() {
   const env = getPayEnv();
-  console.log("🚀 ~ file: index.vue:11 ~ getEnvJumpCode ~ env:", env);
-
   if (env == "wx") {
     // 在微信中打开
     code.value = getUrlCode().code;
@@ -18,6 +16,7 @@ function getEnvJumpCode() {
     //  支付宝
     code.value = getQueryParams().auth_code;
   }
+  console.log("🚀 ~ file: index.vue:20 ~ getEnvJumpCode ~ code.value:", code.value);
   if (code.value) {
     storage.setItem("userCode", code.value);
   }
@@ -86,7 +85,7 @@ async function getParseQRCode() {
   const codestr = decodeURIComponent(codePlate.value).replace(/"/g, "");
   parseQRCodeInfo.value = await parseQRCode(codestr);
 }
-// getEnvJumpCode();
+getEnvJumpCode();
 </script>
 
 <template>

@@ -7,11 +7,14 @@ import AutoImport from "unplugin-auto-import/vite";
 import { VantResolver } from "unplugin-vue-components/resolvers";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import path from "path";
+import { resolve } from "path";
 import mockDevServerPlugin from "vite-plugin-mock-dev-server";
 import vueSetupExtend from "vite-plugin-vue-setup-extend";
 import viteCompression from "vite-plugin-compression";
 import { createHtmlPlugin } from "vite-plugin-html";
+import { viteVConsole } from "vite-plugin-vconsole";
 import { enableCDN } from "./build/cdn";
+const pathResolve = (dir: string) => resolve(__dirname, dir);
 
 // 当前工作目录路径
 const root: string = process.cwd();
@@ -43,11 +46,20 @@ export default defineConfig(({ mode }) => {
       // 生产环境 gzip 压缩资源
       viteCompression(),
       // 注入模板数据
-      createHtmlPlugin({
-        inject: {
-          data: {
-            ENABLE_ERUDA: env.VITE_ENABLE_ERUDA || "false"
-          }
+      // createHtmlPlugin({
+      //   inject: {
+      //     data: {
+      //       ENABLE_ERUDA: env.VITE_ENABLE_ERUDA || "false"
+      //     }
+      //   }
+      // }),
+      viteVConsole({
+        entry: pathResolve("src/main.ts"),
+        localEnabled: true,
+        enabled: env.VITE_BUILD_VCONSOLE === "true",
+        config: {
+          maxLogNumber: 1000,
+          theme: "dark"
         }
       }),
       // 自动导入api
@@ -75,7 +87,11 @@ export default defineConfig(({ mode }) => {
       // doc: https://github.com/pengzhanbo/vite-plugin-mock-dev-server
       proxy: {
         "^/dev-api": {
-          target: ""
+          // target: "http://192.168.73.23:8080", //魏峰本地
+          // target: "http://192.168.70.26:8080", //尔清本地
+          target: "https://polardaytest.postar.cn/v1" // 测试
+          // target: "http://192.168.140.109:8080", //研发环境
+          // target: "https://yhk.postar.cn/v1", //后端公网地址(最新)
         }
       }
     },

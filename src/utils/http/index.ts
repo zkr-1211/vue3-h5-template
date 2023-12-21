@@ -2,6 +2,7 @@ import Axios, { type AxiosInstance, type AxiosError, type AxiosResponse, type Ax
 import { ContentTypeEnum, ResultEnum } from "@/enums/requestEnum";
 import NProgress from "../progress";
 import { showFailToast } from "vant";
+import { storage } from "../storage";
 import "vant/es/toast/style";
 
 // 默认 axios 实例请求配置
@@ -25,10 +26,16 @@ class Http {
     Http.axiosInstance.interceptors.request.use(
       config => {
         NProgress.start();
+        // 接口token白名单
+        const whitelist = ["/payfly/h5/login", "/payfly/h5/login/pre"];
         // 发送请求前，可在此携带 token
-        // if (token) {
-        //   config.headers['token'] = token
-        // }
+        const token = storage.getItem("token");
+        if (token) {
+          if (!whitelist.includes(config.url as string)) {
+            config.headers["Authorization"] = `Bearer ${token}`;
+          }
+        }
+        config.headers["client-type"] = import.meta.env.VUE_APP_CLIENT_TYPE;
         return config;
       },
       (error: AxiosError) => {
@@ -66,6 +73,7 @@ class Http {
             message = "请求错误";
             break;
           case 401:
+            storage.removeItem("token");
             message = "未授权，请登录";
             break;
           case 403:
