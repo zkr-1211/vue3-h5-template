@@ -31,9 +31,7 @@ const handleErrorReq = () => {
       <van-button type="success" @click="handleSuccessReq">成功请求</van-button>
       <van-button type="danger" @click="handleErrorReq">失败请求</van-button>
     </van-space>
-    <div
-      class="text-[14px] py-[2px] px-[10px] rounded-[4px] bg-[var(--color-block-background)] mt-[14px]"
-    >
+    <div class="text-[14px] py-[2px] px-[10px] rounded-[4px] bg-[var(--color-block-background)] mt-[14px]">
       <p class="my-[14px] leading-[24px]">
         {{ showList }}
       </p>

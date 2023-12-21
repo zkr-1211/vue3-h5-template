@@ -86,7 +86,7 @@ async function getParseQRCode() {
   const codestr = decodeURIComponent(codePlate.value).replace(/"/g, "");
   parseQRCodeInfo.value = await parseQRCode(codestr);
 }
-getEnvJumpCode();
+// getEnvJumpCode();
 </script>
 
 <template>

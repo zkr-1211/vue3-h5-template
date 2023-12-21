@@ -5,10 +5,10 @@
 export function getPayEnv(): string {
   const browser = navigator.userAgent.toLowerCase();
   let payEnv = "";
-  if ((browser.match(/Alipay/i) as unknown) === "alipay") {
+  if ((browser.match(/Alipay/i) as unknown) == "alipay") {
     payEnv = "alipay";
   }
-  if ((browser.match(/MicroMessenger/i) as unknown) === "micromessenger") {
+  if ((browser.match(/MicroMessenger/i) as unknown) == "micromessenger") {
     payEnv = "wx";
   }
   return payEnv;

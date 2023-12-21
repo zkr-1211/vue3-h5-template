@@ -21,7 +21,12 @@
     "type-check": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "release": "standard-version",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "CICD:deploy": "node CICD.js deploy",
+    "CICD:deployBackup": "node CICD.js deployBackup",
+    "CICD:rollback": "node CICD.js rollback",
+    "build:deploy": "vite build && node CICD.js deploy",
+    "build:deployBackup": "vite build && node CICD.js deployBackup"
   },
   "dependencies": {
     "axios": "^1.5.1",
@@ -49,6 +54,7 @@
     "commitlint": "^17.8.1",
     "eslint": "^8.52.0",
     "eslint-plugin-vue": "^9.18.0",
+    "gtxy-cicd": "^1.0.1",
     "husky": "^8.0.3",
     "less": "^4.2.0",
     "mockjs": "^1.1.0",
