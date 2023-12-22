@@ -86,12 +86,14 @@ export default defineConfig(({ mode }) => {
       // 仅在 proxy 中配置的代理前缀， mock-dev-server 才会拦截并 mock
       // doc: https://github.com/pengzhanbo/vite-plugin-mock-dev-server
       proxy: {
-        "^/dev-api": {
+        "/dev-api": {
           // target: "http://192.168.73.23:8080", //魏峰本地
           // target: "http://192.168.70.26:8080", //尔清本地
-          target: "https://polardaytest.postar.cn/v1" // 测试
+          target: "https://polardaytest.postar.cn/v1", // 测试
           // target: "http://192.168.140.109:8080", //研发环境
           // target: "https://yhk.postar.cn/v1", //后端公网地址(最新)
+          changeOrigin: true,
+          rewrite: p => p.replace(/^\/dev-api/, "")
         }
       }
     },

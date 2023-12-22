@@ -1,14 +1,16 @@
 import Axios, { type AxiosInstance, type AxiosError, type AxiosResponse, type AxiosRequestConfig } from "axios";
 import { ContentTypeEnum, ResultEnum } from "@/enums/requestEnum";
+import { startLoading, stopLoading } from "./loading";
 import NProgress from "../progress";
 import { showFailToast } from "vant";
 import { storage } from "../storage";
 import "vant/es/toast/style";
+import type { Response } from "./types";
 
 // 默认 axios 实例请求配置
 const configDefault = {
   headers: {
-    "Content-Type": ContentTypeEnum.FORM_URLENCODED
+    "Content-Type": ContentTypeEnum.JSON
   },
   timeout: 0,
   baseURL: import.meta.env.VITE_BASE_API,
@@ -24,18 +26,20 @@ class Http {
   // 请求拦截
   private httpInterceptorsRequest(): void {
     Http.axiosInstance.interceptors.request.use(
-      config => {
+      (config: any) => {
         NProgress.start();
+        // 有的请求隐藏loading
+        if (!config.loadingHide) startLoading();
         // 接口token白名单
         const whitelist = ["/payfly/h5/login", "/payfly/h5/login/pre"];
         // 发送请求前，可在此携带 token
         const token = storage.getItem("token");
         if (token) {
-          if (!whitelist.includes(config.url as string)) {
+          if (!whitelist.includes(config.url)) {
             config.headers["Authorization"] = `Bearer ${token}`;
           }
         }
-        config.headers["client-type"] = import.meta.env.VUE_APP_CLIENT_TYPE;
+        config.headers["client-type"] = import.meta.env.VITE_CLIENT_TYPE;
         return config;
       },
       (error: AxiosError) => {
@@ -48,22 +52,25 @@ class Http {
   // 响应拦截
   private httpInterceptorsResponse(): void {
     Http.axiosInstance.interceptors.response.use(
-      (response: AxiosResponse) => {
+      (response: AxiosResponse<Response>) => {
         NProgress.done();
+        stopLoading();
         // 与后端协定的返回字段
-        const { code, message, result } = response.data;
+        const { code, msg, data } = response.data;
         // 判断请求是否成功
-        const isSuccess = result && Reflect.has(response.data, "code") && code === ResultEnum.SUCCESS;
+        const isSuccess = data && Reflect.has(response.data, "code") && code === ResultEnum.SUCCESS;
         if (isSuccess) {
-          return result;
+          return data;
         } else {
           // 处理请求错误
-          // showFailToast(message);
+          showFailToast(msg);
           return Promise.reject(response.data);
         }
       },
       (error: AxiosError) => {
         NProgress.done();
+        // 有的请求需要隐藏loading
+        stopLoading();
         // 处理 HTTP 网络错误
         let message = "";
         // HTTP 状态码

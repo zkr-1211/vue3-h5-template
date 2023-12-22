@@ -18,6 +18,14 @@ const routes: Array<RouteRecordRaw> = [
         }
       },
       {
+        path: "temple",
+        name: "Temple",
+        component: () => import("@/views/temple/index.vue"),
+        meta: {
+          title: "temple"
+        }
+      },
+      {
         path: "demo",
         name: "Demo",
         component: () => import("@/views/demo/index.vue"),

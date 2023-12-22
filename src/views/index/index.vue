@@ -1,91 +1,57 @@
 <script setup lang="ts" name="Index">
-import { login, parseQRCode, type loginReq } from "@/api/code";
-import { ref } from "vue";
-import { getPayEnv } from "@/utils/tools";
+import { preLogin, type preLoginReq } from "@/api/code";
+import { getPayEnv, getUrlCode } from "@/utils/tools";
 import { storage } from "@/utils/storage";
-const code = ref("");
-const codePlate = ref("");
-let parseQRCodeInfo = ref<any>({});
-function getEnvJumpCode() {
-  const env = getPayEnv();
-  if (env == "wx") {
-    // 在微信中打开
-    code.value = getUrlCode().code;
-  }
-  if (env == "alipay") {
-    //  支付宝
-    code.value = getQueryParams().auth_code;
-  }
-  console.log("🚀 ~ file: index.vue:20 ~ getEnvJumpCode ~ code.value:", code.value);
-  if (code.value) {
-    storage.setItem("userCode", code.value);
-  }
-  codePlate.value = storage.getItem("codePlate") || "";
-  if (codePlate.value && code.value) {
-    loginInfo();
-  }
-}
-// 微信获取code
-function getUrlCode(): Record<string, string> {
-  // 截取url中的code方法
-  const url = location.search;
-  const theRequest: Record<string, string> = {};
-  if (url.indexOf("?") !== -1) {
-    const str = url.substr(1);
-    const strs = str.split("&");
-    for (let i = 0; i < strs.length; i++) {
-      theRequest[strs[i].split("=")[0]] = strs[i].split("=")[1];
-    }
-  }
-  return theRequest;
-}
-// 支付宝获取code
-function getQueryParams(): Record<string, string> {
-  const result: Record<string, string> = {}; // 存参数得对象
-  const urlString = location.href;
-  // 利用正则表达式
-  const reg = /[?&][^?&]+=[^?&]+/g;
-  const found = urlString.match(reg); // 拿到有符合正则得字符串，输出为数组 [ '?name=home', '&age=20' ]
-  if (found) {
-    found.forEach(item => {
-      const temp = item.substring(1).split("="); // = 分割
-      const key = temp[0];
-      const value = temp[1];
-      result[key] = value;
-    });
-  }
-  return result;
-}
-async function loginInfo() {
-  const env = getPayEnv();
-  const userCode = storage.getItem("userCode") || code.value;
-  const token = storage.getItem("token");
-  const codePlateAndToken = JSON.parse(storage.getItem("codePlateAndToken"));
-  const codePlateJson = codePlateAndToken[codePlate.value];
-  const params: loginReq = {
-    appId: codePlateJson?.appId,
-    appType: env == "wx" ? 2 : 1,
-    data: {
-      code: userCode,
-      scope: env == "wx" ? "snsapi_base" : "auth_base"
-    },
-    sign: codePlateJson?.sign,
-    qrCodeEncodeStr: codePlate.value
-  };
-  if (token) {
-    getParseQRCode();
+import { showFailToast } from "vant";
+// const route = useRoute();
+async function init() {
+  removeStores();
+  const codePlate = getUrlCode().codePlate;
+  if (!codePlate) {
+    showFailToast("未找到码牌信息，请重新扫码");
     return;
   }
-  const userInfoRes = await login(params);
-  storage.setItem("token", userInfoRes.access_token, 60 * 60 * 24);
-  storage.setItem("user_openid", userInfoRes.user_openid, 60 * 60 * 24);
-  getParseQRCode();
+  storage.setItem("codePlate", codePlate);
+  const env = getPayEnv();
+  const params: preLoginReq = {
+    appType: env == "wx" ? 2 : 1,
+    qrCodeEncodeStr: codePlate || "TjBKQlpwUVpybHhsZUxwWERVcUYyZz09"
+  };
+  const preLoginData = await preLogin(params);
+  storage.setItem("codePlateJson", JSON.stringify(preLoginData));
+  const local = `${window.location.protocol}//${window.location.host}/payfly/#/temple`;
+  if (env == "wx") {
+    getWechatCode(preLoginData.id, local);
+  }
+  if (env == "alipay") {
+    getAliCode(preLoginData.id, local);
+  }
 }
-async function getParseQRCode() {
-  const codestr = decodeURIComponent(codePlate.value).replace(/"/g, "");
-  parseQRCodeInfo.value = await parseQRCode(codestr);
+// 去处理微信code
+function getWechatCode(appid: string, local: string) {
+  window.location.href =
+    "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" +
+    appid +
+    "&redirect_uri=" +
+    encodeURIComponent(local) +
+    "&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
 }
-getEnvJumpCode();
+// 去处理支付宝code
+function getAliCode(appid: string, local: string) {
+  window.location.href =
+    "https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=" +
+    appid +
+    "&redirect_uri=" +
+    encodeURIComponent(local) +
+    "&scope=auth_base ";
+}
+// 删除缓存
+function removeStores() {
+  storage.removeItem("token");
+  storage.removeItem("userCode");
+  storage.removeItem("userOpenid");
+}
+init();
 </script>
 
 <template>
