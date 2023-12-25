@@ -40,7 +40,7 @@ function musicInWeixinHandler() {
   document.addEventListener("touchstart", function () {
     const env = getPayEnv();
     if (!isPlay.value) {
-      if (env == "wx") {
+      if (env == "w1x") {
         playVoice();
         isPlay.value = true;
       }

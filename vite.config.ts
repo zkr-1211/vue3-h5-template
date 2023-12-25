@@ -13,7 +13,7 @@ import vueSetupExtend from "vite-plugin-vue-setup-extend";
 import viteCompression from "vite-plugin-compression";
 import { createHtmlPlugin } from "vite-plugin-html";
 import { viteVConsole } from "vite-plugin-vconsole";
-import { enableCDN } from "./build/cdn";
+// import { enableCDN } from "./build/cdn";
 const pathResolve = (dir: string) => resolve(__dirname, dir);
 
 // 当前工作目录路径
@@ -46,13 +46,13 @@ export default defineConfig(({ mode }) => {
       // 生产环境 gzip 压缩资源
       viteCompression(),
       // 注入模板数据
-      // createHtmlPlugin({
-      //   inject: {
-      //     data: {
-      //       ENABLE_ERUDA: env.VITE_ENABLE_ERUDA || "false"
-      //     }
-      //   }
-      // }),
+      createHtmlPlugin({
+        inject: {
+          data: {
+            ENABLE_ERUDA: env.VITE_ENABLE_ERUDA || "false"
+          }
+        }
+      }),
       viteVConsole({
         entry: pathResolve("src/main.ts"),
         localEnabled: true,
@@ -72,9 +72,9 @@ export default defineConfig(({ mode }) => {
         eslintrc: {
           enabled: true
         }
-      }),
+      })
       // 生产环境默认不启用 CDN 加速
-      enableCDN(env.VITE_CDN_DEPS)
+      // enableCDN(env.VITE_CDN_DEPS)
     ],
     resolve: {
       alias: {
@@ -98,13 +98,32 @@ export default defineConfig(({ mode }) => {
       }
     },
     build: {
+      outDir: "dist", // 指定打包路径，默认为项目根目录下的 dist 目录
+      sourcemap: env.VITE_BUILD_SOURCEMAP === "true",
+      cssCodeSplit: true, // css代码拆分,禁用则所有样式保存在一个css里面
+      assetsInlineLimit: 4096, // 小于此阈值的导入或引用资源将内联为 base64 编码，以避免额外的 http 请求。设置为 0 可以完全禁用此项
+      // minify默认esbuild，esbuild模式下terserOptions将失效
+      // vite3变化：Terser 现在是一个可选依赖，如果你使用的是 build.minify: 'terser'，你需要手动安装它 `npm add -D terser`
+      minify: "terser",
+      terserOptions: {
+        compress: {
+          keep_infinity: true, // 防止 Infinity 被压缩成 1/0，这可能会导致 Chrome 上的性能问题
+          drop_console: env.VITE_BUILD_DROP_CONSOLE === "true", // 去除 console
+          drop_debugger: true // 去除 debugger
+        }
+      },
       rollupOptions: {
         output: {
+          manualChunks: {
+            vue: ["vue", "vue-router", "pinia"],
+            vant: ["vant"]
+          },
           chunkFileNames: "static/js/[name]-[hash].js",
           entryFileNames: "static/js/[name]-[hash].js",
           assetFileNames: "static/[ext]/[name]-[hash].[ext]"
         }
-      }
+      },
+      chunkSizeWarningLimit: 2000
     }
   };
 });

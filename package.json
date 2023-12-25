@@ -25,7 +25,8 @@
     "CICD:deploy": "node CICD.js deploy",
     "CICD:deployBackup": "node CICD.js deployBackup",
     "CICD:rollback": "node CICD.js rollback",
-    "build:deploy": "vite build && node CICD.js deploy",
+    "build-test:deploy": "vite build --mode=test && node CICD.js deploy",
+    "build-prod:deploy": "vite build && node CICD.js deploy",
     "build:deployBackup": "vite build && node CICD.js deployBackup"
   },
   "dependencies": {

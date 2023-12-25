@@ -3,6 +3,7 @@ import { preLogin, type preLoginReq } from "@/api/code";
 import { getPayEnv, getUrlCode } from "@/utils/tools";
 import { storage } from "@/utils/storage";
 import { showFailToast } from "vant";
+// import router from "@/router";
 // const route = useRoute();
 async function init() {
   removeStores();
@@ -19,7 +20,7 @@ async function init() {
   };
   const preLoginData = await preLogin(params);
   storage.setItem("codePlateJson", JSON.stringify(preLoginData));
-  const local = `${window.location.protocol}//${window.location.host}/payfly/#/temple`;
+  const local = `${window.location.protocol}//${window.location.host}/retail/#/temple`;
   if (env == "wx") {
     getWechatCode(preLoginData.id, local);
   }
