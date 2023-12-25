@@ -1,66 +1,34 @@
 import { http } from "@/utils/http";
+import type { loginReq, loginRes, parseQRCodeRes, preLoginReq, preLoginRes } from "./type";
 
-export interface loginReq {
-  appId: string;
-  appType: number;
-  data: {
-    code: string;
-    scope: string;
-  };
-  sign: string;
-  qrCodeEncodeStr: string;
-}
-export interface loginRes {
-  access_token: string;
-  user_openid: string;
-}
-export interface parseQRCodeRes {
-  codePlate: {
-    appType: string;
-    cpId: number;
-    cpName: string;
-    cpState: number;
-    cpUrl: string;
-    decorateJson: string;
-    endDate: string;
-    startDate: string;
-    orderButton: string;
-    version: string;
-  };
-  lifecycle: string;
-}
-export interface preLoginReq {
-  appType: number;
-  qrCodeEncodeStr: string;
-}
-export interface preLoginRes {
-  id: string;
-  sign: string;
-  type: string;
-}
-
-const flag = "payfly";
-
-export function login(data: loginReq): Promise<loginRes> {
-  return http.request({
-    url: `/${flag}/h5/login`,
-    method: "post",
-    data: data
-  });
-}
-
-export function parseQRCode(encodeStr: string): Promise<parseQRCodeRes> {
-  return http.request({
-    url: `/${flag}/h5/codePlate/parse/${encodeStr}`,
-    method: "get"
-  });
+enum codeAPI {
+  Login = "/payfly/h5/login",
+  ParseQRCode = "/payfly/h5}/codePlate/parse/",
+  PreLogin = "/payfly/h5/login/pre"
 }
 
 // H5用户预登录
-export function preLogin(data: preLoginReq): Promise<preLoginRes> {
-  return http.request({
-    url: `/${flag}/h5/login/pre`,
+export function preLogin(data: preLoginReq) {
+  return http.request<preLoginRes>({
+    url: codeAPI.PreLogin,
     method: "post",
     data: data
+  });
+}
+
+// H5用户登录
+export function login(data: loginReq) {
+  return http.request<loginRes>({
+    url: codeAPI.Login,
+    method: "post",
+    data: data
+  });
+}
+
+// 解析码牌
+export function parseQRCode(encodeStr: string) {
+  return http.request<parseQRCodeRes>({
+    url: codeAPI.ParseQRCode + encodeStr,
+    method: "get"
   });
 }

@@ -1,9 +1,9 @@
 <script setup lang="ts" name="Temple">
-import { login, parseQRCode, type loginReq, type parseQRCodeRes } from "@/api/code";
+import { login, parseQRCode } from "@/api/code";
+import type { preLoginRes, loginReq, parseQRCodeRes } from "@/api/code/type";
 import { getPayEnv, getUrlCode, getQueryParams } from "@/utils/tools";
 import setPageTitle from "@/utils/set-page-title";
 import { storage } from "@/utils/storage";
-import type { preLoginRes } from "@/api/code";
 const router = useRouter();
 const codePlate = ref("");
 let parseQRCodeInfo: parseQRCodeRes = reactive({

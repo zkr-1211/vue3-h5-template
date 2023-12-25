@@ -1,5 +1,6 @@
 <script setup lang="ts" name="Index">
-import { preLogin, type preLoginReq } from "@/api/code";
+import { preLogin } from "@/api/code";
+import type { preLoginReq } from "@/api/code/type";
 import { getPayEnv, getUrlCode } from "@/utils/tools";
 import { storage } from "@/utils/storage";
 import { showFailToast } from "vant";
