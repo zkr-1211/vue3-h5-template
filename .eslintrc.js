@@ -1,5 +1,5 @@
 /* eslint-env node */
-require('@rushstack/eslint-patch/modern-module-resolution')
+require('@rushstack/eslint-patch/modern-module-resolution');
 
 module.exports = {
   root: true,
@@ -24,7 +24,6 @@ module.exports = {
   },
   parser: 'vue-eslint-parser',
   rules: {
-    'prefer-destructuring': ['error', { 'object': true, 'array': false }],
     // 强制使用多行CSS属性
     'vue/multi-word-component-names': 0,
     // 强制使用成对大括号
@@ -312,9 +311,9 @@ module.exports = {
         allowTemplateLiterals: true
       }
     ],
-    // 逗号后面必须有一个空格
+    // 末尾是否分号always带有  never不带有
     semi: [2, 'never'],
-    // 逗号后面必须有一个空格
+    // 分号后面必须有一个空格
     'semi-spacing': [
       2,
       {
@@ -379,4 +378,4 @@ module.exports = {
       processor: 'vue/.vue'
     }
   ]
-}
+};
