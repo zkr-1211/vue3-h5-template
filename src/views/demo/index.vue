@@ -1,7 +1,7 @@
 <script setup lang="ts" name="Demo">
-import { reactive } from 'vue'
-import { Vue3SeamlessScroll } from 'vue3-seamless-scroll'
-import { getPayEnv } from '@/utils/tools'
+import { reactive } from 'vue';
+import { Vue3SeamlessScroll } from 'vue3-seamless-scroll';
+import { getPayEnv } from '@/utils/tools';
 const contentList = reactive([
   '✔ ⚡ Vue3 + Vite4',
   '✔ 🍕 TypeScript',
@@ -18,7 +18,7 @@ const contentList = reactive([
   '✔ ESLint',
   '✔ 首屏加载动画',
   '✔ 开发环境调试面板'
-])
+]);
 const classOption = ref({
   step: 0.5, // 数值越大速度滚动越快
   limitMoveNum: 1, // 开始无缝滚动的数据量 this.dataList.length
@@ -28,35 +28,35 @@ const classOption = ref({
   singleHeight: 1, // 单步运动停止的高度(默认值0是无缝不停止的滚动) direction => 0/1
   singleWidth: 1, // 单步运动停止的宽度(默认值0是无缝不停止的滚动) direction => 2/3
   waitTime: 2000
-})
-const audio = ref(new Audio('https://scene-star.obs.cn-east-3.myhuaweicloud.com:443/3fabf853-8932-4a66-93e8-c362056ca301.mp3'))
-const isPlay = ref(false)
+});
+const audio = ref(new Audio('https://scene-star.obs.cn-east-3.myhuaweicloud.com:443/3fabf853-8932-4a66-93e8-c362056ca301.mp3'));
+const isPlay = ref(false);
 
 function playVoice() {
-  audio.value.play()
+  audio.value.play();
 }
 
 function musicInWeixinHandler() {
   document.addEventListener('touchstart', function() {
-    const env = getPayEnv()
+    const env = getPayEnv();
     if (!isPlay.value) {
       if (env == 'w1x') {
-        playVoice()
-        isPlay.value = true
+        playVoice();
+        isPlay.value = true;
       }
     }
-  })
+  });
 
   document.addEventListener(
     'AlipayJSBridgeReady',
     function evt() {
-      playVoice()
-      document.removeEventListener('AlipayJSBridgeReady', evt, false)
+      playVoice();
+      document.removeEventListener('AlipayJSBridgeReady', evt, false);
     },
     false
-  )
+  );
 }
-musicInWeixinHandler()
+musicInWeixinHandler();
 </script>
 
 <template>

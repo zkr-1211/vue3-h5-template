@@ -1,4 +1,4 @@
-import { http } from '@/utils/http'
+import { http } from '@/utils/http';
 
 type ListResult = {
   code: number;
@@ -11,7 +11,7 @@ export function getListApi(params?: object): Promise<ListResult> {
     url: '/list/get',
     method: 'get',
     params
-  })
+  });
 }
 
 export function getListApiError(data?: object): Promise<ListResult> {
@@ -19,5 +19,5 @@ export function getListApiError(data?: object): Promise<ListResult> {
     url: '/list/error',
     method: 'post',
     data
-  })
+  });
 }

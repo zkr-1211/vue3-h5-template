@@ -1,4 +1,4 @@
-import { cdn } from 'vite-plugin-cdn2'
+import { cdn } from 'vite-plugin-cdn2';
 
 export function enableCDN(isEnabled: string) {
   if (isEnabled === 'true') {
@@ -7,6 +7,6 @@ export function enableCDN(isEnabled: string) {
       // url: "https://cdn.jsdelivr.net/npm/",
       url: 'https://unpkg.com/',
       modules: ['vue', 'vue-demi', 'pinia', 'axios', 'vant', 'vue-router']
-    })
+    });
   }
 }

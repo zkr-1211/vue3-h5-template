@@ -1,28 +1,28 @@
-import { fileURLToPath, URL } from 'node:url'
-import { defineConfig, loadEnv } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import vueJsx from '@vitejs/plugin-vue-jsx'
-import Components from 'unplugin-vue-components/vite'
-import AutoImport from 'unplugin-auto-import/vite'
-import { VantResolver } from 'unplugin-vue-components/resolvers'
-import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
-import path from 'path'
-import { resolve } from 'path'
-import mockDevServerPlugin from 'vite-plugin-mock-dev-server'
-import vueSetupExtend from 'vite-plugin-vue-setup-extend'
-import viteCompression from 'vite-plugin-compression'
-import { createHtmlPlugin } from 'vite-plugin-html'
-import { viteVConsole } from 'vite-plugin-vconsole'
+import { fileURLToPath, URL } from 'node:url';
+import { defineConfig, loadEnv } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import vueJsx from '@vitejs/plugin-vue-jsx';
+import Components from 'unplugin-vue-components/vite';
+import AutoImport from 'unplugin-auto-import/vite';
+import { VantResolver } from 'unplugin-vue-components/resolvers';
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
+import path from 'path';
+import { resolve } from 'path';
+import mockDevServerPlugin from 'vite-plugin-mock-dev-server';
+import vueSetupExtend from 'vite-plugin-vue-setup-extend';
+import viteCompression from 'vite-plugin-compression';
+import { createHtmlPlugin } from 'vite-plugin-html';
+import { viteVConsole } from 'vite-plugin-vconsole';
 // import { enableCDN } from "./build/cdn";
-const pathResolve = (dir: string) => resolve(__dirname, dir)
+const pathResolve = (dir: string) => resolve(__dirname, dir);
 
 // 当前工作目录路径
-const root: string = process.cwd()
+const root: string = process.cwd();
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   // 环境变量
-  const env = loadEnv(mode, root, '')
+  const env = loadEnv(mode, root, '');
   return {
     base: env.VITE_PUBLIC_PATH || '/',
     plugins: [
@@ -125,5 +125,5 @@ export default defineConfig(({ mode }) => {
       },
       chunkSizeWarningLimit: 2000
     }
-  }
-})
+  };
+});

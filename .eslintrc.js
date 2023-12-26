@@ -11,7 +11,7 @@ module.exports = {
     'plugin:vue/vue3-essential',
     'eslint:recommended',
     '@vue/eslint-config-typescript'
-    // "@vue/eslint-config-prettier",
+    // '@vue/eslint-config-prettier',
   ],
   parserOptions: {
     ecmaVersion: 'latest',
@@ -312,7 +312,7 @@ module.exports = {
       }
     ],
     // 末尾是否分号always带有  never不带有
-    semi: [2, 'never'],
+    semi: [2, 'always'],
     // 分号后面必须有一个空格
     'semi-spacing': [
       2,

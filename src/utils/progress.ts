@@ -1,5 +1,5 @@
-import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
 
 NProgress.configure({
   // 动画方式
@@ -14,6 +14,6 @@ NProgress.configure({
   minimum: 0.3,
   // 加载条的父元素
   parent: '#app'
-})
+});
 
-export default NProgress
+export default NProgress;

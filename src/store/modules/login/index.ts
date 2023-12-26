@@ -1,5 +1,5 @@
-import { defineStore } from 'pinia'
-import type { UserState } from './types'
+import { defineStore } from 'pinia';
+import type { UserState } from './types';
 // import { login } from "@/api/code";
 
 const useLoginStore = defineStore('user', {
@@ -11,7 +11,7 @@ const useLoginStore = defineStore('user', {
 
   getters: {
     userInfo(state: UserState): UserState {
-      return { ...state }
+      return { ...state };
     }
   },
 
@@ -27,6 +27,6 @@ const useLoginStore = defineStore('user', {
     //   }
     // }
   }
-})
+});
 
-export default useLoginStore
+export default useLoginStore;
