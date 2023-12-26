@@ -1,8 +1,8 @@
-import { defineStore } from "pinia";
-import { getPayChannel, getPayState, getOrderState } from "@/api/dict";
-import type { DictType } from "@/api/dict/type";
-import type { DictProps } from "./types";
-export const useDictStore = defineStore("dict", {
+import { defineStore } from 'pinia'
+import { getPayChannel, getPayState, getOrderState } from '@/api/dict'
+import type { DictType } from '@/api/dict/type'
+import type { DictProps } from './types'
+export const useDictStore = defineStore('dict', {
   state: (): DictProps => ({
     payChannel: {} as DictType,
     payState: {} as DictType,
@@ -11,30 +11,30 @@ export const useDictStore = defineStore("dict", {
 
   getters: {
     getPayChannel(): DictType {
-      return this.payChannel;
+      return this.payChannel
     },
     getPayState(): DictType {
-      return this.payState;
+      return this.payState
     },
     getOrderState(): DictType {
-      return this.orderState;
+      return this.orderState
     }
   },
 
   actions: {
     async reqPayChannel() {
-      const res = await getPayChannel();
-      this.payChannel = res;
+      const res = await getPayChannel()
+      this.payChannel = res
     },
     async reqPayState() {
-      const res = await getPayState();
-      this.payState = res;
+      const res = await getPayState()
+      this.payState = res
     },
     async reqOrderState() {
-      const res = await getOrderState();
-      this.orderState = res;
+      const res = await getOrderState()
+      this.orderState = res
     }
   }
-});
+})
 
-export default useDictStore;
+export default useDictStore

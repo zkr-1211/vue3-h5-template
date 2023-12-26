@@ -6,7 +6,7 @@ const useLoginStore = defineStore('user', {
   state: (): UserState => ({
     id: '',
     username: '',
-    nickname: '',
+    nickname: ''
   }),
 
   getters: {
