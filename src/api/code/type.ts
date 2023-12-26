@@ -1,4 +1,4 @@
-export interface loginReq {
+export interface LoginReq {
   appId: string;
   appType: number;
   data: {
@@ -9,12 +9,12 @@ export interface loginReq {
   qrCodeEncodeStr: string;
 }
 
-export interface loginRes {
+export interface LoginRes {
   access_token: string;
   user_openid: string;
 }
 
-export interface parseQRCodeRes {
+export interface ParseQRCodeRes {
   codePlate: {
     appType: string;
     cpId: number;
@@ -30,12 +30,12 @@ export interface parseQRCodeRes {
   lifecycle: string;
 }
 
-export interface preLoginReq {
+export interface PreLoginReq {
   appType: number;
   qrCodeEncodeStr: string;
 }
 
-export interface preLoginRes {
+export interface PreLoginRes {
   id: string;
   sign: string;
   type: string;

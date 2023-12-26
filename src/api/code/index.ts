@@ -1,5 +1,5 @@
 import { http } from "@/utils/http";
-import type { loginReq, loginRes, parseQRCodeRes, preLoginReq, preLoginRes } from "./type";
+import type { LoginReq, LoginRes, ParseQRCodeRes, PreLoginReq, PreLoginRes } from "./type";
 
 enum codeAPI {
   Login = "/payfly/h5/login",
@@ -8,8 +8,8 @@ enum codeAPI {
 }
 
 // H5用户预登录
-export function preLogin(data: preLoginReq) {
-  return http.request<preLoginRes>({
+export function preLogin(data: PreLoginReq) {
+  return http.request<PreLoginRes>({
     url: codeAPI.PreLogin,
     method: "post",
     data: data
@@ -17,8 +17,8 @@ export function preLogin(data: preLoginReq) {
 }
 
 // H5用户登录
-export function login(data: loginReq) {
-  return http.request<loginRes>({
+export function login(data: LoginReq) {
+  return http.request<LoginRes>({
     url: codeAPI.Login,
     method: "post",
     data: data
@@ -27,7 +27,7 @@ export function login(data: loginReq) {
 
 // 解析码牌
 export function parseQRCode(encodeStr: string) {
-  return http.request<parseQRCodeRes>({
+  return http.request<ParseQRCodeRes>({
     url: codeAPI.ParseQRCode + encodeStr,
     method: "get"
   });

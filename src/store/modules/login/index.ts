@@ -1,16 +1,17 @@
-import { defineStore } from "pinia";
-import type { UserState } from "./types";
+import { defineStore } from 'pinia'
+import type { UserState } from './types'
+// import { login } from "@/api/code";
 
-const useLoginStore = defineStore("user", {
+const useLoginStore = defineStore('user', {
   state: (): UserState => ({
-    id: "",
-    username: "",
-    nickname: ""
+    id: '',
+    username: '',
+    nickname: '',
   }),
 
   getters: {
     userInfo(state: UserState): UserState {
-      return { ...state };
+      return { ...state }
     }
   },
 
@@ -18,7 +19,7 @@ const useLoginStore = defineStore("user", {
     // 用户登录
     // async login(req: LoginReq) {
     //   try {
-    //     const res = await userLogin(req);
+    //     const res = await login(req);
     //     setToken(res.data.access_token);
     //   } catch (err) {
     //     clearToken();
@@ -26,6 +27,6 @@ const useLoginStore = defineStore("user", {
     //   }
     // }
   }
-});
+})
 
-export default useLoginStore;
+export default useLoginStore
