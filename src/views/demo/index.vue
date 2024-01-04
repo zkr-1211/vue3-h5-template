@@ -29,18 +29,32 @@ const classOption = ref({
   singleWidth: 1, // 单步运动停止的宽度(默认值0是无缝不停止的滚动) direction => 2/3
   waitTime: 2000
 });
-const audio = ref(new Audio('https://scene-star.obs.cn-east-3.myhuaweicloud.com:443/3fabf853-8932-4a66-93e8-c362056ca301.mp3'));
+const audio = ref<HTMLAudioElement>(new Audio('https://scene-star.obs.cn-east-3.myhuaweicloud.com:443/3fabf853-8932-4a66-93e8-c362056ca301.mp3'));
 const isPlay = ref(false);
+const rotate = ref(false);
 
 function playVoice() {
   audio.value.play();
+  rotate.value = true;
 }
-
+function stopPlay() {
+  audio.value.pause();
+  rotate.value = false;
+}
+onMounted(() => {
+  audio.value.addEventListener('ended', handleAudioEnded);
+});
+// 监听音频播放结束事件
+const handleAudioEnded = () => {
+  // 在播放结束后重新播放
+  audio.value.currentTime = 0; // 重置播放时间
+  audio.value.play();
+};
 function musicInWeixinHandler() {
   document.addEventListener('touchstart', function() {
     const env = getPayEnv();
     if (!isPlay.value) {
-      if (env == 'w1x') {
+      if (env == 'wx') {
         playVoice();
         isPlay.value = true;
       }
@@ -96,8 +110,9 @@ musicInWeixinHandler();
         target="_blank"
       >
         <svg-icon
-          class="text-[20px] mr-[8px]"
           name="github"
+          :class="{ run: rotate}"
+          @click="stopPlay"
         />
 
         <h3
@@ -134,4 +149,37 @@ musicInWeixinHandler();
   overflow: hidden;
   background-color: rgb(197, 157, 157);
 }
+
+  /*
+  turn : 定义的动画名称
+  1s : 动画时间
+  linear : 动画以何种运行轨迹完成一个周期
+  infinite :规定动画应该无限次播放
+*/
+
+.run {
+    animation: rotate 1.5s linear infinite;
+  }
+
+  @keyframes rotate {
+    0% {
+      -webkit-transform: rotate(0deg);
+    }
+
+    25% {
+      -webkit-transform: rotate(90deg);
+    }
+
+    50% {
+      -webkit-transform: rotate(180deg);
+    }
+
+    75% {
+      -webkit-transform: rotate(270deg);
+    }
+
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+  }
 </style>

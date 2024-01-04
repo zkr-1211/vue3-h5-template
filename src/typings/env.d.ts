@@ -13,6 +13,8 @@ interface ImportMetaEnv {
   readonly VITE_BUILD_SOURCEMAP: string;
   readonly VITE_BUILD_DROP_CONSOLE: string;
   readonly VITE_BUILD_VCONSOLE: string;
+  readonly VITE_BASE_API: string;
+  readonly VITE_CLIENT_TYPE: string;
   // 更多环境变量...
 }
 
