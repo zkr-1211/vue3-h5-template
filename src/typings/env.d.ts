@@ -15,6 +15,7 @@ interface ImportMetaEnv {
   readonly VITE_BUILD_VCONSOLE: string;
   readonly VITE_BASE_API: string;
   readonly VITE_CLIENT_TYPE: string;
+  readonly VITE_PUBLIC_PATH: string;
   // 更多环境变量...
 }
 

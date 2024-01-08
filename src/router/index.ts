@@ -1,11 +1,11 @@
-import { createRouter, createWebHashHistory, type RouteLocationNormalized } from 'vue-router';
+import { createRouter, createWebHistory, type RouteLocationNormalized } from 'vue-router';
 import routes from './routes';
 import { useCachedViewStoreHook } from '@/store/modules/cachedView';
 import NProgress from '@/utils/progress';
 import setPageTitle from '@/utils/set-page-title';
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(import.meta.env.VITE_PUBLIC_PATH),
   routes
 });
 
