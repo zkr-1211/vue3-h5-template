@@ -1,15 +1,7 @@
 {
-  "name": "vue3-h5-template",
-  "homepage": "https://yulimchen.github.io/vue3-h5-template/",
+  "name": "vue3-h5-temple",
   "version": "0.5.7",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/yulimchen/vue3-h5-template.git"
-  },
-  "bugs": {
-    "url": "https://github.com/yulimchen/vue3-h5-template/issues"
-  },
   "engines": {
     "node": ">= 16"
   },
@@ -38,7 +30,8 @@
     "vconsole": "^3.15.1",
     "vue": "^3.3.6",
     "vue-router": "^4.2.5",
-    "vue3-seamless-scroll": "^2.0.1"
+    "vue3-seamless-scroll": "^2.0.1",
+    "weixin-js-sdk": "^1.6.5"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.8.1",

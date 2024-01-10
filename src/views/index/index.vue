@@ -4,29 +4,16 @@ import type { PreLoginReq } from '@/api/code/type';
 import { getPayEnv, getUrlCode } from '@/utils/tools';
 import { storage } from '@/utils/storage';
 import { showFailToast } from 'vant';
-// import router from "@/router";
-// const route = useRoute();
+const route = useRoute();
 async function init() {
-  removeStores();
-  const { codePlate } = getUrlCode();
-  if (!codePlate) {
-    showFailToast('未找到码牌信息，请重新扫码');
-    return;
-  }
-  storage.setItem('codePlate', codePlate);
   const env = getPayEnv();
-  const params: PreLoginReq = {
-    appType: env == 'wx' ? 2 : 1,
-    qrCodeEncodeStr: codePlate || 'TjBKQlpwUVpybHhsZUxwWERVcUYyZz09'
-  };
-  const preLoginData = await preLogin(params);
-  storage.setItem('codePlateJson', JSON.stringify(preLoginData));
-  const local = `${window.location.protocol}//${window.location.host}/retail/#/temple`;
+  const local = `${window.location.protocol}//${window.location.host}/retail/temple`;
   if (env == 'wx') {
-    getWechatCode(preLoginData.id, local);
+    console.log('🚀 ~ init ~ route:', route.query);
+    getWechatCode(route.query.appId as string || 'wx61a4920dd1582b39', local);
   }
   if (env == 'alipay') {
-    getAliCode(preLoginData.id, local);
+    // getAliCode(preLoginData.id, local);
   }
 }
 // 去处理微信code

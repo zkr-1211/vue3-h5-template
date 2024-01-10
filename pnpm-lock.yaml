@@ -28,6 +28,9 @@ dependencies:
   vue3-seamless-scroll:
     specifier: ^2.0.1
     version: 2.0.1
+  weixin-js-sdk:
+    specifier: ^1.6.5
+    version: 1.6.5
 
 devDependencies:
   '@commitlint/config-conventional':
@@ -6822,6 +6825,10 @@ packages:
   /webpack-virtual-modules@0.6.1:
     resolution: {integrity: sha512-poXpCylU7ExuvZK8z+On3kX+S8o/2dQ/SVYueKA0D4WEMXROXgY8Ez50/bQEUmvoSMMrWcrJqCHuhAbsiwg7Dg==}
     dev: true
+
+  /weixin-js-sdk@1.6.5:
+    resolution: {integrity: sha512-Gph1WAWB2YN/lMOFB/ymb+hbU/wYazzJgu6PMMktCy9cSCeW5wA6Zwt0dpahJbJ+RJEwtTv2x9iIu0U4enuVSQ==}
+    dev: false
 
   /which-boxed-primitive@1.0.2:
     resolution: {integrity: sha512-bwZdv0AKLpplFY2KZRX6TvyuN7ojjr7lwkg6ml0roIy9YeuSr7JS372qlNW18UQYzgYK9ziGcerWqZOmEn9VNg==}

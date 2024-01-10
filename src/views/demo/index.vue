@@ -19,6 +19,10 @@ const contentList = reactive([
   '✔ 首屏加载动画',
   '✔ 开发环境调试面板'
 ]);
+let demo = reactive({
+  name: 'Demo',
+  value: '123'
+});
 const classOption = ref({
   step: 0.5, // 数值越大速度滚动越快
   limitMoveNum: 1, // 开始无缝滚动的数据量 this.dataList.length
@@ -32,12 +36,17 @@ const classOption = ref({
 const audio = ref<HTMLAudioElement>(new Audio('https://scene-star.obs.cn-east-3.myhuaweicloud.com:443/3fabf853-8932-4a66-93e8-c362056ca301.mp3'));
 const isPlay = ref(false);
 const rotate = ref(false);
-
+const scale = {
+  name: '重置',
+  value: '12322222'
+};
 function playVoice() {
+  demo['name'] = '赋值';
   audio.value.play();
   rotate.value = true;
 }
 function stopPlay() {
+  demo = scale;
   audio.value.pause();
   rotate.value = false;
 }
@@ -75,7 +84,12 @@ musicInWeixinHandler();
 
 <template>
   <div class="demo-content px-[12px]">
-    <div class="table1">
+    {{ JSON.stringify(demo) }}
+    <input
+      v-model="demo.name"
+      type="text"
+    >
+    <!-- <div class="table1">
       <vue3-seamless-scroll
         :step="0.5"
         :list="contentList"
@@ -96,7 +110,7 @@ musicInWeixinHandler();
           </tbody>
         </table>
       </vue3-seamless-scroll>
-    </div>
+    </div> -->
 
     <img
       class="block w-[120px] mx-auto mb-[20px] pt-[30px]"
@@ -118,7 +132,7 @@ musicInWeixinHandler();
         <h3
           class="font-bold text-[18px] my-[4px]"
           @click="playVoice"
-        >Vue3-h5-template</h3>
+        >template</h3>
 
         <svg-icon
           class="text-[12px] ml-[5px]"
@@ -127,19 +141,19 @@ musicInWeixinHandler();
       </a>
     </div>
 
-    <div class="text-[14px] py-[2px] px-[10px] rounded-[4px] bg-[var(--color-block-background)] mt-[14px]">
+    <!-- <div class="text-[14px] py-[2px] px-[10px] rounded-[4px] bg-[var(--color-block-background)] mt-[14px]">
       <p class="aaa">
         🌱 基于 Vue3 全家桶、TypeScript、Vite 构建工具，开箱即用的 H5 移动端项目基础模板
       </p>
-    </div>
+    </div> -->
 
-    <div class="demo-main">
+    <!-- <div class="demo-main">
       <van-cell
         v-for="(item, idx) in contentList"
         :key="idx"
         :title="item"
       />
-    </div>
+    </div> -->
   </div>
 </template>
 
