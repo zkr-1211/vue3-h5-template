@@ -1,44 +1,28 @@
 <script setup lang="ts" name="Index">
-import { preLogin } from '@/api/code';
-import type { PreLoginReq } from '@/api/code/type';
-import { getPayEnv, getUrlCode } from '@/utils/tools';
-import { storage } from '@/utils/storage';
-import { showFailToast } from 'vant';
+import { getPayEnv } from '@/utils/tools';
 const route = useRoute();
-async function init() {
+function init() {
   const env = getPayEnv();
-  const local = `${window.location.protocol}//${window.location.host}/retail/temple`;
   if (env == 'wx') {
-    console.log('🚀 ~ init ~ route:', route.query);
-    getWechatCode(route.query.appId as string || 'wx61a4920dd1582b39', local);
+    // const codePlate = route.query.codePlate;
+    // const appId = 'wx7cd05626d476f4cc';
+    // const path = 'pages/scene/index';
+    // window.location.href = `weixin://dl/business/?appid=${appId}&path=${path}&query=q=?codePlate=${codePlate}`;
+    window.location.href = `https://wxaurl.cn/8AvqO5u9RTq`;
+    return;
   }
   if (env == 'alipay') {
-    // getAliCode(preLoginData.id, local);
+    const codePlate = route.query.codePlate;
+    const appId = '2021004130628893';
+    const path = 'pages/scene/index';
+    const query = encodeURIComponent(`qrCode=?codePlate=${codePlate}`);
+    const scheme = `alipays://platformapi/startapp?appId=${appId}&page=${path}&query=${query}`;
+    window.location.href = `https://ds.alipay.com/?scheme=${encodeURIComponent(scheme)}`;
   }
-}
-// 去处理微信code
-function getWechatCode(appid: string, local: string) {
-  window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${encodeURIComponent(
-    local
-  )}&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect`;
-}
-// 去处理支付宝code
-function getAliCode(appid: string, local: string) {
-  window.location.href = `https://openauth.alipay.com/oauth2/publicAppAuthorize.htm?app_id=${appid}&redirect_uri=${encodeURIComponent(
-    local
-  )}&scope=auth_base `;
-}
-// 删除缓存
-function removeStores() {
-  storage.removeItem('token');
-  storage.removeItem('userCode');
-  storage.removeItem('userOpenid');
 }
 init();
 </script>
-
 <template>
-  <div>index</div>
+  <div>首页测试</div>
 </template>
-
 <style lang="less" scoped></style>
