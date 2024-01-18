@@ -6,6 +6,11 @@ import setPageTitle from '@/utils/set-page-title';
 import { storage } from '@/utils/storage';
 import { useDictStore } from '@/store';
 import { useRouter } from 'vue-router';
+import Content from '@/components/Content/index.vue';
+import MeritList from '@/components/MeritList/index.vue';
+import TextEllipsis from '@/components/TextEllipsis/index.vue';
+import FootPanel from '@/components/FootPanel/index.vue';
+import Audio from '@/components/Audio/index.vue';
 
 const dictStore = useDictStore();
 const router = useRouter();
@@ -73,19 +78,74 @@ function getEnvJumpCode() {
   }
 }
 
-function toTemple() {
-  router.replace({
-    path: '/index',
-    params: { codePlate: storage.getItem('codePlate') || '' }
+getEnvJumpCode();
+interface ListProps {
+  time: string;
+  name: string;
+  type: string;
+  price: number;
+}
+const list = ref<ListProps[]>([]);
+for (let i = 0; i < 20; i++) {
+  list.value.push({
+    time: '2022-12-12',
+    name: '涌泉寺',
+    type: '寺庙灯',
+    price: 100
   });
 }
-getEnvJumpCode();
 </script>
-
 <template>
-  <div @click="toTemple">
-    temple
+  <div class="container">
+    <Audio />
+    <van-swipe
+      class="my-swipe"
+      :autoplay="3000"
+      indicator-color="white"
+    >
+      <van-swipe-item>1</van-swipe-item>
+      <van-swipe-item>2</van-swipe-item>
+      <van-swipe-item>3</van-swipe-item>
+      <van-swipe-item>4</van-swipe-item>
+    </van-swipe>
+    <Content title="『 涌泉古寺 』">
+      <TextEllipsis
+        title="『 涌泉古寺 』"
+        content="涌泉寺为闽刹之冠，是全国重点寺庙之一。寺院建在海拔455米的鼓山山腰，占地约1.7公顷，前为香炉峰，后倚白云峰，有“进山不见寺进寺不见山的奇特建筑格局,涌泉寺始建于783年，初名华"
+      />
+    </Content>
+    <Content title="『 功德榜 』">
+      <MeritList :list="list" />
+    </Content>
+    <Content title="『 功德榜 』">
+      <MeritList :list="list" />
+    </Content>
+    <Content title="『 功德榜 』">
+      <MeritList :list="list" />
+    </Content>
+    <Content>
+      <TextEllipsis
+        title="『 涌泉古寺 』"
+        content="涌泉寺为闽刹之冠，是全国重点寺庙之一。寺院建在海拔455米的鼓山山腰，占地约1.7公顷，前为香炉峰，后倚白云峰，有“进山不见寺进寺不见山的奇特建筑格局,涌泉寺始建于783年，初名华"
+      />
+    </Content>
+    <div class="h-[60px]" />
+    <FootPanel />
   </div>
 </template>
-
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.container {
+  background-color: #a19393;
+  height: 100vh;
+  overflow: auto;
+background-color: #F0ECE1;
+  .my-swipe .van-swipe-item {
+    color: #fff;
+    font-size: 20px;
+    line-height: 200px;
+    text-align: center;
+    background-color: #eee48b;
+    margin-bottom: 14px;
+  }
+}
+</style>

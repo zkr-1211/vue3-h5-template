@@ -3,7 +3,7 @@ import type { LoginReq, LoginRes, ParseQRCodeRes, PreLoginReq, PreLoginRes } fro
 
 enum codeAPI {
   Login = '/payfly/h5/login',
-  ParseQRCode = '/payfly/h5}/codePlate/parse/',
+  ParseQRCode = '/payfly/h5/codePlate/parse/',
   PreLogin = '/payfly/h5/login/pre'
 }
 

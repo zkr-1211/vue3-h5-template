@@ -1,34 +1,5 @@
 <script setup lang="ts" name="Demo">
-import { reactive } from 'vue';
-import { Vue3SeamlessScroll } from 'vue3-seamless-scroll';
 import { getPayEnv } from '@/utils/tools';
-const contentList = reactive([
-  '✔ ⚡ Vue3 + Vite4',
-  '✔ 🍕 TypeScript',
-  '✔ ✨ Vant4 组件库',
-  '✔ 🌀 Tailwindcss 原子类框架',
-  '✔ 🍍 Pinia 状态管理',
-  '✔ 🌓 支持深色模式',
-  '✔ Vue-router 4',
-  '✔ 支持 SVG 图标自动注册组件',
-  '✔ vw 视口适配',
-  '✔ Axios 封装',
-  '✔ 打包资源 gzip 压缩',
-  '✔ 开发环境支持 Mock 数据',
-  '✔ ESLint',
-  '✔ 首屏加载动画',
-  '✔ 开发环境调试面板'
-]);
-const classOption = ref({
-  step: 0.5, // 数值越大速度滚动越快
-  limitMoveNum: 1, // 开始无缝滚动的数据量 this.dataList.length
-  hoverStop: true, // 是否开启鼠标悬停stop
-  direction: 1, // 0向下 1向上 2向左 3向右
-  openWatch: false, // 开启数据实时监控刷新dom
-  singleHeight: 1, // 单步运动停止的高度(默认值0是无缝不停止的滚动) direction => 0/1
-  singleWidth: 1, // 单步运动停止的宽度(默认值0是无缝不停止的滚动) direction => 2/3
-  waitTime: 2000
-});
 const audio = ref<HTMLAudioElement>(new Audio('https://scene-star.obs.cn-east-3.myhuaweicloud.com:443/3fabf853-8932-4a66-93e8-c362056ca301.mp3'));
 const isPlay = ref(false);
 const rotate = ref(false);
@@ -75,29 +46,6 @@ musicInWeixinHandler();
 
 <template>
   <div class="demo-content px-[12px]">
-    <div class="table1">
-      <vue3-seamless-scroll
-        :step="0.5"
-        :list="contentList"
-        :class-option="classOption"
-        class="table"
-      >
-        <table
-          class="w-full"
-          cellpadding="5px"
-        >
-          <tbody>
-            <tr
-              v-for="(item, index) in contentList"
-              :key="index"
-            >
-              <th>{{ item }}</th>
-            </tr>
-          </tbody>
-        </table>
-      </vue3-seamless-scroll>
-    </div>
-
     <img
       class="block w-[120px] mx-auto mb-[20px] pt-[30px]"
       alt="Vue logo"
@@ -131,14 +79,6 @@ musicInWeixinHandler();
       <p class="aaa">
         🌱 基于 Vue3 全家桶、TypeScript、Vite 构建工具，开箱即用的 H5 移动端项目基础模板
       </p>
-    </div>
-
-    <div class="demo-main">
-      <van-cell
-        v-for="(item, idx) in contentList"
-        :key="idx"
-        :title="item"
-      />
     </div>
   </div>
 </template>
