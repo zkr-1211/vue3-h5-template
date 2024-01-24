@@ -1,5 +1,6 @@
 <script setup lang="ts" name="MeritList">
 import { Vue3SeamlessScroll } from 'vue3-seamless-scroll';
+import AutoScroll from '@/components/Common/AutoScroll/index.vue';
 const props = defineProps<{
   list?: Array<any>
 }>();
@@ -17,11 +18,10 @@ const classOption = ref({
 </script>
 <template>
   <div class="table-list">
-    <vue3-seamless-scroll
-      :step="0.5"
+    <AutoScroll
+      :scroll-speed="30"
       :list="list"
       :class-option="classOption"
-      class="table"
     >
       <!-- 表格上下间距 -->
 
@@ -40,7 +40,7 @@ const classOption = ref({
           </tr>
         </tbody>
       </table>
-    </vue3-seamless-scroll>
+    </AutoScroll>
   </div>
 </template>
 
