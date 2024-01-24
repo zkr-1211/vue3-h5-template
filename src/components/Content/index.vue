@@ -15,9 +15,18 @@ withDefaults(defineProps<Props>(), {
       </div>
     </div>
     <div class="content-text">
-      <!-- <slot name="content" /> -->
       <slot />
     </div>
+    <img
+      class="content-bg left-0"
+      src="@/assets/images/left_btbg.png"
+      alt=""
+    >
+    <img
+      class="content-bg right-0"
+      src="@/assets/images/right_btbg.png"
+      alt=""
+    >
   </div>
 </template>
 
@@ -26,11 +35,13 @@ withDefaults(defineProps<Props>(), {
   width: 343px;
   background: #999493;
   margin: 0 auto 12px;
+  position: relative;
 
   .content-title {
+    background-image: url('@/assets/images/title_bg.png');
+    background-size: 100% 100%;
     height: 50px;
     width: 343px;
-    background: linear-gradient(180deg, #9D2928 0%, #601D09 84%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,6 +61,14 @@ withDefaults(defineProps<Props>(), {
     font-weight: 600;
     color: #651E0C;
     background-color: #F7F5EF;
+  }
+
+  .content-bg {
+    width: 42px;
+    height: 42px;
+    position: absolute;
+    bottom: 0;
+    // z-index: -1;
   }
 
 }

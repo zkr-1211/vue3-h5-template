@@ -100,23 +100,22 @@ const handleMouseUp = () => {
 </template>
 <style>
 .scroll-container {
-  height: 200px;
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
+  height: 200px;
   scroll-behavior: smooth; /* 启用全局的平滑滚动效果 */
 }
-
 .scroll-content {
   position: absolute;
   top: 0;
-  left: 0;
   right: 0;
+  left: 0;
+  z-index: 9;
 }
-
 .item {
   height: 50px;
   line-height: 50px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #cccccc;
   text-align: center;
 }
 </style>

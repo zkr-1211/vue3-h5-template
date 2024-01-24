@@ -43,15 +43,22 @@ function musicInWeixinHandler() {
   );
 }
 musicInWeixinHandler();
+
 </script>
 
 <template>
-  <div class="audio">
-    <svg-icon
-      name="github"
-      :class="{ run: rotate }"
-      @click="changePlay"
-    />
+  <div
+    :class="['audio w-[35px] h-[35px]', { run: rotate }]"
+    @click="changePlay"
+  >
+    <img
+      v-if="rotate"
+      src="@/assets/images/icon_yy.png"
+    >
+    <img
+      v-else
+      src="@/assets/images/icon_dyy.png"
+    >
   </div>
 </template>
 

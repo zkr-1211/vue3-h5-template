@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{
-  content?: string
+  content?: string;
 }>();
 const desShowAll = ref(false);
 const desTextRows = ref(0);
@@ -29,12 +29,21 @@ const toggleShow = () => {
       >
         {{ props.content }}
       </div>
+      <van-divider :style="{ color: '#DFD4CB', borderColor: '#DFD4CB' }" />
       <div
         v-if="desTextRows > 2"
-        class="toggle text-center"
+        class="mt-[10px] text-center flex align-center justify-center"
         @click.prevent="toggleShow"
       >
-        {{ desShowAll ? '收起更多' : '展开更多' }}
+        <div>
+          {{ desShowAll ? "收起更多" : "展开更多" }}
+        </div>
+        <img
+          class="w-[20px] h-[20px] "
+          :style="{ rotate: desShowAll ? '180deg' : '0deg' }"
+          src="@/assets/images/icon_xl.png"
+          mode="scaleToFill"
+        >
       </div>
     </div>
   </van-row>
@@ -42,25 +51,19 @@ const toggleShow = () => {
 <style lang="less" scoped>
 .roadshowDescValueDiv {
   position: relative;
-
   .desContent {
     position: relative;
-    font-size: 15px;
     line-height: 24px;
-    word-break: break-all;
+    font-size: 15px;
     display: -webkit-box;
     overflow: hidden;
     -webkit-line-clamp: 2;
+    word-break: break-all;
     -webkit-box-orient: vertical;
   }
 
   .show-all {
     -webkit-line-clamp: unset;
-  }
-
-  .toggle {
-    margin-top: 10px;
-    line-height: 18px;
   }
 }
 </style>
