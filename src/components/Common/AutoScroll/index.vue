@@ -1,29 +1,15 @@
 <script setup lang="ts" name="AutoScroll">
 interface Props {
-  dataList: string[];
   scrollSpeed: number;
 }
 const props = defineProps<Props>();
 const scrollContainer = ref<HTMLElement | null>(null);
-const items = ref(props.dataList);
 const scrollY = ref(0);
-const autoScrollInterval: NodeJS.Timeout | null = null;
+let animationFrameId: number | null = null;
 
 const handleScroll = () => {
-  scrollY.value = scrollContainer.value.scrollTop;
+  scrollY.value = scrollContainer.value!.scrollTop;
 };
-
-onMounted(() => {
-  scrollContainer.value.addEventListener('scroll', handleScroll);
-  setTimeout(() => {
-    startAutoScroll();
-  }, 500); // 1秒后开始自动滚动
-});
-
-onUnmounted(() => {
-  scrollContainer.value.removeEventListener('scroll', handleScroll);
-  stopAutoScroll();
-});
 
 const startAutoScroll = () => {
   stopAutoScroll();
@@ -32,22 +18,41 @@ const startAutoScroll = () => {
   const animateScroll = (currentTime: number) => {
     const timeDiff = currentTime - lastFrameTime;
     const newY = scrollY.value + timeDiff * (props.scrollSpeed / 1000); // 根据时间差计算滚动距离
-    scrollY.value = newY >= scrollContainer.value.scrollHeight - scrollContainer.value.clientHeight ? 0 : newY;
-    scrollContainer.value.scrollTop = scrollY.value;
+    scrollY.value = newY >= scrollContainer.value!.scrollHeight - scrollContainer.value!.clientHeight ? 0 : newY;
+    scrollContainer.value!.scrollTop = scrollY.value;
     lastFrameTime = currentTime;
-    requestAnimationFrame(animateScroll);
+    animationFrameId = requestAnimationFrame(animateScroll);
   };
 
-  requestAnimationFrame(animateScroll);
+  animationFrameId = requestAnimationFrame(animateScroll);
 };
 
 const stopAutoScroll = () => {
-  clearInterval(autoScrollInterval);
+  if (animationFrameId) {
+    cancelAnimationFrame(animationFrameId);
+    animationFrameId = null;
+  }
 };
+
+onMounted(() => {
+  scrollContainer.value!.addEventListener('scroll', handleScroll);
+  setTimeout(() => {
+    startAutoScroll();
+  }, 500); // 1秒后开始自动滚动
+});
+
+onBeforeUnmount(() => {
+  // 停止自动滚动动画
+  stopAutoScroll();
+  // 移除滚动事件监听器
+  scrollContainer.value!.removeEventListener('scroll', handleScroll);
+});
+
 const handleTouchStart = () => {
   // 手指触摸开始
   if (scrollContainer.value) {
     scrollContainer.value.style.overflow = 'auto'; // 显示滚动条
+    scrollContainer.value.style.scrollBehavior = 'auto'; // 启动平滑
   }
 };
 
@@ -55,6 +60,7 @@ const handleTouchEnd = () => {
   // 手指触摸结束
   if (scrollContainer.value) {
     scrollContainer.value.style.overflow = 'hidden'; // 隐藏滚动条
+    scrollContainer.value.style.scrollBehavior = 'smooth'; // 启动平滑
   }
 };
 
@@ -62,6 +68,7 @@ const handleMouseDown = () => {
   // 鼠标按下
   if (scrollContainer.value) {
     scrollContainer.value.style.overflow = 'auto'; // 显示滚动条
+    scrollContainer.value.style.scrollBehavior = 'auto'; // 启动平滑
   }
 };
 
@@ -69,6 +76,7 @@ const handleMouseUp = () => {
   // 鼠标抬起
   if (scrollContainer.value) {
     scrollContainer.value.style.overflow = 'hidden'; // 隐藏滚动条
+    scrollContainer.value.style.scrollBehavior = 'smooth'; // 启动平滑
   }
 };
 </script>
@@ -95,6 +103,7 @@ const handleMouseUp = () => {
   height: 200px;
   overflow: hidden;
   position: relative;
+  scroll-behavior: smooth; /* 启用全局的平滑滚动效果 */
 }
 
 .scroll-content {

@@ -20,11 +20,29 @@ const classOption = ref({
   <div class="table-list">
     <AutoScroll
       :scroll-speed="30"
-      :list="list"
       :class-option="classOption"
     >
-      <!-- 表格上下间距 -->
-
+      <table class="table">
+        <tbody>
+          <tr
+            v-for="(item, index) in list"
+            :key="index"
+          >
+            <th>{{ index }}</th>
+            <th>{{ item.time }}</th>
+            <th>{{ item.name }}</th>
+            <th>{{ item.type }}</th>
+            <th>{{ item.price }}元</th>
+          </tr>
+        </tbody>
+      </table>
+    </AutoScroll>
+    <!-- <vue3-seamless-scroll
+      :step="0.5"
+      :list="list"
+      :class-option="classOption"
+      class="table"
+    >
       <table
         class="table"
       >
@@ -40,7 +58,7 @@ const classOption = ref({
           </tr>
         </tbody>
       </table>
-    </AutoScroll>
+    </vue3-seamless-scroll> -->
   </div>
 </template>
 
