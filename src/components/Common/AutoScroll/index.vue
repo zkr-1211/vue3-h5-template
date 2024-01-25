@@ -8,7 +8,7 @@ const scrollY = ref(0);
 let animationFrameId: number | null = null;
 
 const handleScroll = () => {
-  scrollY.value = scrollContainer.value!.scrollTop;
+  // scrollY.value = scrollContainer.value!.scrollTop;
 };
 
 const startAutoScroll = () => {
@@ -35,10 +35,10 @@ const stopAutoScroll = () => {
 };
 
 onMounted(() => {
-  scrollContainer.value!.addEventListener('scroll', handleScroll);
-  setTimeout(() => {
-    startAutoScroll();
-  }, 500); // 1秒后开始自动滚动
+  // scrollContainer.value!.addEventListener('scroll', handleScroll);
+  // setTimeout(() => {
+  //   startAutoScroll();
+  // }, 500); // 1秒后开始自动滚动
 });
 
 onBeforeUnmount(() => {
@@ -48,37 +48,21 @@ onBeforeUnmount(() => {
   scrollContainer.value!.removeEventListener('scroll', handleScroll);
 });
 
-const handleTouchStart = () => {
-  // 手指触摸开始
-  if (scrollContainer.value) {
-    scrollContainer.value.style.overflow = 'auto'; // 显示滚动条
-    scrollContainer.value.style.scrollBehavior = 'auto'; // 启动平滑
-  }
-};
+// const handleTouchStart = () => {
+//   console.log('🚀 ~ 手指触摸开始 ~ 手指触摸开始:');
+//   if (scrollContainer.value) {
+//     scrollContainer.value.style.overflow = 'auto'; // 显示滚动条
+//     scrollContainer.value.style.scrollBehavior = 'auto'; // 启动平滑
+//   }
+// };
 
-const handleTouchEnd = () => {
-  // 手指触摸结束
-  if (scrollContainer.value) {
-    scrollContainer.value.style.overflow = 'hidden'; // 隐藏滚动条
-    scrollContainer.value.style.scrollBehavior = 'smooth'; // 启动平滑
-  }
-};
-
-const handleMouseDown = () => {
-  // 鼠标按下
-  if (scrollContainer.value) {
-    scrollContainer.value.style.overflow = 'auto'; // 显示滚动条
-    scrollContainer.value.style.scrollBehavior = 'auto'; // 启动平滑
-  }
-};
-
-const handleMouseUp = () => {
-  // 鼠标抬起
-  if (scrollContainer.value) {
-    scrollContainer.value.style.overflow = 'hidden'; // 隐藏滚动条
-    scrollContainer.value.style.scrollBehavior = 'smooth'; // 启动平滑
-  }
-};
+// const handleTouchEnd = () => {
+//   console.log('🚀 ~ 手指触摸结束 ~ 手指触摸结束:');
+//   if (scrollContainer.value) {
+//     scrollContainer.value.style.overflow = 'hidden'; // 隐藏滚动条
+//     scrollContainer.value.style.scrollBehavior = 'smooth'; // 启动平滑
+//   }
+// };
 </script>
 <template>
   <div
@@ -86,8 +70,6 @@ const handleMouseUp = () => {
     class="scroll-container"
     @touchstart="handleTouchStart"
     @touchend="handleTouchEnd"
-    @mousedown="handleMouseDown"
-    @mouseup="handleMouseUp"
   >
     <div
       id="scroll-content"
@@ -101,7 +83,7 @@ const handleMouseUp = () => {
 <style>
 .scroll-container {
   position: relative;
-  overflow: hidden;
+  overflow: auto;
   height: 200px;
   scroll-behavior: smooth; /* 启用全局的平滑滚动效果 */
 }

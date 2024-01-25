@@ -42,11 +42,11 @@ const routes: Array<RouteRecordRaw> = [
         }
       },
       {
-        path: 'about',
-        name: 'About',
-        component: () => import('@/views/about/index.vue'),
+        path: 'merit',
+        name: 'Merit',
+        component: () => import('@/views/merit/index.vue'),
         meta: {
-          title: '关于',
+          title: '我的功德',
           noCache: true
         }
       }

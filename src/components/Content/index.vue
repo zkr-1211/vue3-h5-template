@@ -11,7 +11,7 @@ withDefaults(defineProps<Props>(), {
   <div class="content">
     <div class="content-title">
       <div class="title">
-        {{ title }}
+        『 {{ title }} 』
       </div>
     </div>
     <div class="content-text">
@@ -68,7 +68,6 @@ withDefaults(defineProps<Props>(), {
     height: 42px;
     position: absolute;
     bottom: 0;
-    // z-index: -1;
   }
 
 }

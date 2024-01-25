@@ -4,7 +4,7 @@ import type { PreLoginReq } from '@/api/code/type';
 import { getPayEnv, getUrlCode } from '@/utils/tools';
 import { storage } from '@/utils/storage';
 import { showFailToast } from 'vant';
-// import router from "@/router";
+import router from '@/router';
 // const route = useRoute();
 async function init() {
   removeStores();
@@ -48,10 +48,16 @@ function removeStores() {
   storage.removeItem('userOpenid');
 }
 init();
+function toTemple() {
+  router.push('/temple');
+}
 </script>
 
 <template>
   <div>index</div>
+  <div @click="toTemple">
+    temple
+  </div>
 </template>
 
 <style lang="less" scoped></style>

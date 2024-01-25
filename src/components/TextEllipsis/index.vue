@@ -29,28 +29,30 @@ const toggleShow = () => {
       >
         {{ props.content }}
       </div>
-      <van-divider :style="{ color: '#DFD4CB', borderColor: '#DFD4CB' }" />
-      <div
-        v-if="desTextRows > 2"
-        class="mt-[10px] text-center flex align-center justify-center"
-        @click.prevent="toggleShow"
-      >
-        <div>
-          {{ desShowAll ? "收起更多" : "展开更多" }}
-        </div>
-        <img
-          class="w-[20px] h-[20px] "
-          :style="{ rotate: desShowAll ? '180deg' : '0deg' }"
-          src="@/assets/images/icon_xl.png"
-          mode="scaleToFill"
+      <template v-if="desTextRows > 2">
+        <van-divider :style="{ color: '#DFD4CB', borderColor: '#DFD4CB'}" />
+        <div
+          class="mt-[10px] text-center flex align-center justify-center"
+          @click.prevent="toggleShow"
         >
-      </div>
+          <div>
+            {{ desShowAll ? "收起更多" : "展开更多" }}
+          </div>
+          <img
+            class="w-[20px] h-[20px] "
+            :style="{ rotate: desShowAll ? '180deg' : '0deg' }"
+            src="@/assets/images/icon_xl.png"
+            mode="scaleToFill"
+          >
+        </div>
+      </template>
     </div>
   </van-row>
 </template>
 <style lang="less" scoped>
 .roadshowDescValueDiv {
   position: relative;
+
   .desContent {
     position: relative;
     line-height: 24px;
@@ -60,6 +62,7 @@ const toggleShow = () => {
     -webkit-line-clamp: 2;
     word-break: break-all;
     -webkit-box-orient: vertical;
+    z-index: 9;
   }
 
   .show-all {

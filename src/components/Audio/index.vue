@@ -1,11 +1,17 @@
 <script setup lang="ts" name="Demo">
 import { getPayEnv } from '@/utils/tools';
-const audio = ref<HTMLAudioElement>(new Audio('https://scene-star.obs.cn-east-3.myhuaweicloud.com:443/3fabf853-8932-4a66-93e8-c362056ca301.mp3'));
+interface Props {
+  data: string;
+}
+const props = defineProps<Props>();
+
+const audio = ref<HTMLAudioElement>(new Audio(props.data));
 const isPlay = ref(false);
 const rotate = ref(false);
 
 function playVoice() {
   audio.value.play();
+  isPlay.value = true;
   rotate.value = true;
 }
 function changePlay() {
@@ -28,7 +34,6 @@ function musicInWeixinHandler() {
     if (!isPlay.value) {
       if (env == 'wx') {
         playVoice();
-        isPlay.value = true;
       }
     }
   });
@@ -43,7 +48,6 @@ function musicInWeixinHandler() {
   );
 }
 musicInWeixinHandler();
-
 </script>
 
 <template>
@@ -66,7 +70,7 @@ musicInWeixinHandler();
 .audio {
   position: fixed;
   right: 16px;
-  top: 16px;
+  top: 26px;
   z-index: 999;
   font-size: 35px
 }

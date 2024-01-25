@@ -14,7 +14,8 @@ import FootPanel from '@/components/FootPanel/index.vue';
 import Audio from '@/components/Audio/index.vue';
 import Donation from '@/components/Donation/index.vue';
 import LightLamp from '@/components/LightLamp/index.vue';
-
+import Form from '@/components/Form/index.vue';
+import obj from './test';
 const dictStore = useDictStore();
 const router = useRouter();
 const codePlate = ref('');
@@ -38,6 +39,10 @@ async function getParseQRCode() {
   parseQRCodeInfo = await parseQRCode(codestr);
   setPageTitle(parseQRCodeInfo.codePlate.cpName);
 }
+
+const dataObj = ref(obj);
+setPageTitle(dataObj.value.templateContent['cop-title'].value);
+
 async function loginInfo(code: string) {
   const token = storage.getItem('token');
   if (token) {
@@ -90,7 +95,7 @@ interface ListProps {
   price: number;
 }
 const list = ref<ListProps[]>([]);
-for (let i = 0; i < 20; i++) {
+for (let i = 0; i < 100; i++) {
   list.value.push({
     time: '2022-12-12',
     name: '涌泉寺',
@@ -99,41 +104,38 @@ for (let i = 0; i < 20; i++) {
   });
 }
 
-const DonationList = ref([10000, 99999.99, 3, 4]);
+const show = ref(true);
+const toDonation = (item: any) => {
+  show.value = true;
+};
 </script>
 <template>
   <div class="container">
-    <Audio />
-    <Banner>
-      <van-swipe
-        class="my-swipe"
-        :autoplay="3000"
-        indicator-color="white"
-        :show-indicators="false"
-      >
-        <van-swipe-item>1</van-swipe-item>
-        <van-swipe-item>2</van-swipe-item>
-        <van-swipe-item>3</van-swipe-item>
-        <van-swipe-item>4</van-swipe-item>
-      </van-swipe>
-    </Banner>
-    <Content title="『 涌泉古寺 』">
-      <TextEllipsis
-        title="『 涌泉古寺 』"
-        content="涌泉寺为闽刹之冠，是全国重点寺庙之一。寺院建在海拔455米的鼓山山腰，占地约1.7公顷，前为香炉峰，后倚白云峰，有“进山不见寺进寺不见山的奇特建筑格局,涌泉寺始建于783年，初名华"
+    <Audio :data="dataObj.templateContent['cop-bgm'].value" />
+    <Banner />
+    <Content :title="dataObj.templateContent['cop-title'].value">
+      <TextEllipsis :content="dataObj.templateContent['cop-blurb'].value" />
+    </Content>
+    <Content :title="dataObj.templateContent['cop-donaType'].title">
+      <Donation :list="dataObj.templateContent['cop-donaType'].value" />
+    </Content>
+    <Content :title="dataObj.templateContent['cop-donaType'].title">
+      <LightLamp
+        :list="dataObj.templateContent['cop-donaType'].value"
+        @donation="toDonation"
       />
     </Content>
-    <Content title="『 供养功德 』">
-      <Donation :list="DonationList" />
-    </Content>
-    <Content title="『 选择供灯 』">
-      <LightLamp :list="DonationList" />
-    </Content>
-    <Content title="『 功德榜 』">
-      <MeritList :list="list" />
+    <Content :title="dataObj.templateContent['cop-merit'].title">
+      <MeritList :list="dataObj.templateContent['cop-merit'].value" />
     </Content>
     <div class="h-[60px]" />
     <FootPanel />
+    <van-popup
+      v-model:show="show"
+      :style="{ padding: '20px', background: '#F5F4F1', 'border-radius': '7px' }"
+    >
+      <Form :data="dataObj.templateContent['cop-submit']" />
+    </van-popup>
   </div>
 </template>
 <style lang="less" scoped>
@@ -141,13 +143,5 @@ const DonationList = ref([10000, 99999.99, 3, 4]);
   height: 100vh;
   overflow: auto;
   background-color: #f0e7d8;
-  .my-swipe .van-swipe-item {
-    color: #fff;
-    font-size: 20px;
-    line-height: 200px;
-    text-align: center;
-    background-color: #eee48b;
-    margin-bottom: 14px;
-  }
 }
 </style>

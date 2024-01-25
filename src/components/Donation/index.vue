@@ -7,7 +7,7 @@
           :key="index"
           class="choose-item"
         >
-          <div :style="{ 'font-size': toChine(item).length >= 10 ? '13px' : '15px' }">
+          <div :style="{ 'font-size': toChine(item).length >= 10 ? '12px' : '14px' }">
             {{ toChine(item) }}
           </div>
           <div>{{ item }}</div>

@@ -6,6 +6,7 @@
           v-for="(item, index) in list"
           :key="index"
           class="choose-item"
+          @click="toDonation(item)"
         >
           <div :style="{ 'font-size': toChine(item).length >= 10 ? '13px' : '15px' }">
             <img
@@ -34,6 +35,10 @@ const toChine = computed(() => {
     return useToChinese(item);
   };
 });
+const emit = defineEmits(['donation']);
+const toDonation = (item: any) => {
+  emit('donation', item);
+};
 </script>
 
 <style lang="less" scoped>
