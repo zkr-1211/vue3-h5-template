@@ -134,7 +134,10 @@ const toDonation = (item: any) => {
       v-model:show="show"
       :style="{ padding: '20px', background: '#F5F4F1', 'border-radius': '7px' }"
     >
-      <Form :data="dataObj.templateContent['cop-submit']" />
+      <Form
+        :data="dataObj.templateContent['cop-submit']"
+        :type="dataObj.templateSkin"
+      />
     </van-popup>
   </div>
 </template>

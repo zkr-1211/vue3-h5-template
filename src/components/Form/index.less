@@ -1,0 +1,98 @@
+.pop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #6D3625;
+  font-size: 14px;
+
+  .title {
+    font-size: 18px;
+    color: #6D3625;
+    margin-bottom: 16px;
+  }
+
+  .input-item {
+    width: 255px;
+    padding: 17px 10px;
+    border: 1px solid #6D3625;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .wishImg {
+    animation: rotate .5s linear infinite;
+  }
+
+  @keyframes rotate {
+    0% {
+      -webkit-transform: rotate(0deg);
+    }
+
+    25% {
+      -webkit-transform: rotate(90deg);
+    }
+
+    50% {
+      -webkit-transform: rotate(180deg);
+    }
+
+    75% {
+      -webkit-transform: rotate(270deg);
+    }
+
+    100% {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+
+  :deep(.van-field) {
+    background-color: #F5F4F1;
+    color: #6D3625 !important;
+    padding: 0;
+  }
+
+  :deep(.van-field__label) {
+    color: #6D3625;
+  }
+
+  :deep(.van-stepper__input) {
+    text-align: right;
+    width: 130px;
+    background-color: #F5F4F1;
+  }
+
+  :deep(.van-field__error-message) {
+    text-align: right;
+    height: 18px;
+  }
+
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('@/assets/images/btn_long.png');
+    background-size: 100% 100%;
+    width: 261px;
+    height: 50px;
+    position: relative;
+
+    .vanbtn {
+      width: 261px;
+      height: 50px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+    }
+
+    span {
+      font-size: 16px;
+      font-weight: 700;
+      background: linear-gradient(130deg, #EEDD85 0%, #FEF6B3 53%, #D9B25B 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+}

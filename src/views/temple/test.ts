@@ -95,20 +95,59 @@ const obj = {
         require: true,
         label: '捐赠类型',
         length: 10,
-        list: []
+        list: [
+          {
+            value: '类型1'
+          },
+          {
+            value: '类型2'
+          }
+        ]
       },
       'cop-donaName': {
         name: 'donaName',
-        require: true,
+        require: false,
         hide: true,
         label: '祈福姓名',
         length: 10
       },
       'cop-donaPhone': {
         name: 'donaPhone',
-        require: true,
+        require: false,
         hide: true,
         label: '祈福手机',
+        length: 11
+      },
+      'cop-donaDuration': {
+        'name': 'donaDuration',
+        'require': true,
+        'label': '供奉时长',
+        'price': 100,
+        'manual': true,
+        'value': '',
+        'list': [
+          {
+            'value': 12,
+            'rules': Array[1]
+          },
+          {
+            'value': 11,
+            'rules': Array[1]
+          }
+        ]
+      },
+      'cop-time': {
+        name: 'donaPhone',
+        require: true,
+        hide: true,
+        label: '填写时长',
+        length: 11
+      },
+      'cop-amt': {
+        name: 'donaPhone',
+        require: true,
+        hide: true,
+        label: '捐赠金额',
         length: 11
       },
       'cop-donaWish': {
@@ -118,7 +157,29 @@ const obj = {
         label: '祈福心愿',
         inline: true,
         value: '',
-        list: []
+        list: [
+          {
+            value: '心愿1'
+          },
+          {
+            value: '心愿2'
+          },
+          {
+            value: '心愿3'
+          },
+          {
+            value: '心愿4'
+          },
+          {
+            value: '心愿5'
+          },
+          {
+            value: '心愿6'
+          },
+          {
+            value: '心愿7'
+          }
+        ]
       },
       'cop-submitButton': {
         value: '立即捐赠',
