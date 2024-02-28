@@ -7,6 +7,7 @@ import { showFailToast } from 'vant';
 import router from '@/router';
 // const route = useRoute();
 async function init() {
+  console.log(aaa.a); // 这个是错误的，会记录到后台中
   removeStores();
   const { codePlate } = getUrlCode();
   if (!codePlate) {

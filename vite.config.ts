@@ -13,6 +13,7 @@ import vueSetupExtend from 'vite-plugin-vue-setup-extend';
 import viteCompression from 'vite-plugin-compression';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import { viteVConsole } from 'vite-plugin-vconsole';
+import { sentryVitePlugin } from '@sentry/vite-plugin';
 // import { enableCDN } from "./build/cdn";
 const pathResolve = (dir: string) => resolve(__dirname, dir);
 
@@ -62,6 +63,11 @@ export default defineConfig(({ mode }) => {
           theme: 'dark'
         }
       }),
+      // sentryVitePlugin({
+      //   org: 'gtxy',
+      //   project: 'javascript-vue',
+      //   authToken: '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'
+      // }),
       // 自动导入api
       AutoImport({
         imports: ['vue', 'vue-router'],
@@ -108,7 +114,7 @@ export default defineConfig(({ mode }) => {
       terserOptions: {
         compress: {
           keep_infinity: true, // 防止 Infinity 被压缩成 1/0，这可能会导致 Chrome 上的性能问题
-          drop_console: env.VITE_BUILD_DROP_CONSOLE === 'true', // 去除 console
+          drop_console: false, // 去除 console
           drop_debugger: true // 去除 debugger
         }
       },
