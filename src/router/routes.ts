@@ -14,7 +14,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Index',
         component: Index,
         meta: {
-          title: '主页'
+          title: '正在跳转...'
         }
       },
       {

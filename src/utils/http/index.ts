@@ -30,16 +30,6 @@ class Http {
         NProgress.start();
         // 有的请求隐藏loading
         if (!config.loadingHide) startLoading();
-        // 接口token白名单
-        const whitelist = ['/payfly/h5/login', '/payfly/h5/login/pre'];
-        // 发送请求前，可在此携带 token
-        const token = storage.getItem('token');
-        if (token) {
-          if (!whitelist.includes(config.url)) {
-            config.headers['Authorization'] = `Bearer ${token}`;
-          }
-        }
-        config.headers['client-type'] = import.meta.env.VITE_CLIENT_TYPE;
         return config;
       },
       (error: AxiosError) => {

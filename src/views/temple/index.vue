@@ -6,7 +6,6 @@ import setPageTitle from '@/utils/set-page-title';
 import { storage } from '@/utils/storage';
 import { useDictStore } from '@/store';
 import { useRouter } from 'vue-router';
-import wx from 'weixin-js-sdk';
 const dictStore = useDictStore();
 const router = useRouter();
 const codePlate = ref('');
@@ -63,15 +62,6 @@ function getEnvJumpCode() {
   if (env === 'wx') {
     code = getUrlCode().code;
     console.log('🚀 ~ getEnvJumpCode ~ code:', code);
-    wx.miniProgram.navigateTo({
-      url: '/pages/scene/index?code=' + code, // 小程序地址
-      success() {
-        console.log('question success');
-      },
-      fail(error) {
-        console.log(error);
-      }
-    });
   }
   // if (env === 'alipay') {
   //   code = getQueryParams().auth_code;

@@ -4,7 +4,8 @@ import type { LoginReq, LoginRes, ParseQRCodeRes, PreLoginReq, PreLoginRes } fro
 enum codeAPI {
   Login = '/payfly/h5/login',
   ParseQRCode = '/payfly/h5}/codePlate/parse/',
-  PreLogin = '/payfly/h5/login/pre'
+  PreLogin = '/payfly/h5/login/pre',
+  Skip = '/payfly/pf2/skip/url/wx/mina/',
 }
 
 // H5用户预登录
@@ -29,6 +30,13 @@ export function login(data: LoginReq) {
 export function parseQRCode(encodeStr: string) {
   return http.request<ParseQRCodeRes>({
     url: codeAPI.ParseQRCode + encodeStr,
+    method: 'get'
+  });
+}
+
+export function getSkipData(query: string) {
+  return http.request<any>({
+    url: codeAPI.Skip + query,
     method: 'get'
   });
 }
