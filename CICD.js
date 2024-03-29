@@ -3,10 +3,10 @@ const { deploy, deployBackup, rollback } = require('gtxy-cicd');
 const config = {
   // 服务器登录信息
   sftpConfig: {
-    host: '192.168.140.108',
-    port: '10030',
-    username: 'polarday',
-    password: 'Polar^Test@2023'
+    host: 'xxx',
+    port: 'xxx',
+    username: 'xxx',
+    password: 'xxx'
   },
   // 本地需要上传的文件
   uploadFile: './dist',
