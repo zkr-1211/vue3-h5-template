@@ -1,10 +1,10 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
   "include": [
-    "env.d.ts", 
-    "src/**/*.ts", 
-    "src/**/*.tsx", 
-    "src/**/*.vue", 
+    "env.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
     "types/*.d.ts",
     "vite.config.ts",
     "build/**/*.ts",
@@ -19,7 +19,21 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "ignoreDeprecations": "5.0"
+    "ignoreDeprecations": "5.0",
+    "noImplicitAny": true,
+    // 严格空检查。如果关闭此选项，则 null 和 undefined 两种类型是任意类型的子类型
+    "strictNullChecks": false,
+    // 严格函数类型检查
+    "strictFunctionTypes": true,
+    // 严格绑定检查
+    "strictBindCallApply": true,
+    // 严格属性初始化检查
+    "strictPropertyInitialization": false,
+    // 不允许出现隐式any类型的this
+    "noImplicitThis": true,
+    // 是否开启严格模式
+    // "alwaysStrict": true,
+    "strict": true,
   },
 
   "references": [
