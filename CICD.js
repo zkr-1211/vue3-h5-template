@@ -3,17 +3,17 @@ const { deploy, deployBackup, rollback } = require('gtxy-cicd');
 const config = {
   // 服务器登录信息
   sftpConfig: {
-    host: '192.168.140.108',
-    port: '10030',
-    username: 'polarday',
-    password: 'Polar^Test@2023'
+    host: 'xxxxxxxxxxxxxxxx',
+    port: 'xxx',
+    username: 'xxx',
+    password: 'xxx'
   },
   // 本地需要上传的文件
   uploadFile: './dist',
   // 服务器路径
-  remotePath: `/home/polarday/h5-retail/dist`,
+  remotePath: `/xxx`,
   // 服务器备份路径
-  backupFolder: `/home/polarday/h5-retail/backup`,
+  backupFolder: `xxx`,
   // 作者
   author: 'CICD'
 };
