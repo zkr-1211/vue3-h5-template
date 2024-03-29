@@ -11,9 +11,9 @@ const config = {
   // 本地需要上传的文件
   uploadFile: './dist',
   // 服务器路径
-  remotePath: `/home/polarday/h5-retail/dist`,
+  remotePath: `xxx`,
   // 服务器备份路径
-  backupFolder: `/home/polarday/h5-retail/backup`,
+  backupFolder: `xxx/backup`,
   // 作者
   author: 'CICD'
 };
